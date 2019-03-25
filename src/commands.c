@@ -23,9 +23,9 @@ char **create_env(char **env)
     int a;
 
     for (i = 0; env[i]; i++);
-    my_env = malloc(sizeof(char *) * i);
+    my_env = malloc(sizeof(char *) * (i - 2));
     for (a = 0; env[a]; a++) {
-        my_env[a] = malloc(sizeof(char *) * my_strlen(env[a]));
+        my_env[a] = malloc(sizeof(char) * my_strlen(env[a]) + 10);
         for (int b = 0; env[a][b]; b++)
             my_env[a][b] = env[a][b];
     }
@@ -37,15 +37,17 @@ void my_setenv(char *input, char **my_env)
     int a;
     int j;
     int k;
+    int n = 0;
     char *name = malloc(sizeof(char) * (my_strlen(input) - 7));
 
-    for (k = 0; input[k]; k++) {
-        if (input[k] == ' ')
-            name[k] = '=';
-        else
-            name[k] = input[k + 7];
+    for (k = 7; input[k]; k++) {
+        if (input[k] != ' ' && input[k] != '\n')
+            name[n] = input[k];
+        else /*if (input[k] == ' ' && input[k] == '\n')*/
+            name[n] = '=';
+        n++;
     }
-    name[my_strlen(name) - 1] = '\0';
+    name[n] = '\0';
     for (a = 0; my_env[a]; a++);
     my_env[a] = malloc(sizeof(char) * my_strlen(name));
     for (j = 0; name[j]; j++)

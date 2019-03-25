@@ -7,10 +7,12 @@ RM	= rm -f
 SRCS	=	$(wildcard ./lib/my/*.c)	\
 			$(wildcard ./src/*.c)
 
-OBJS	= $(SRCS:.c=.o)
+OBJS	=	$(SRCS:.c=.o)
+
+VALG	=	$(wildcard vgcore*)
 
 CFLAGS = -I ./include/
-CFLAGS += -Wall -Wextra
+CFLAGS += -Wall -Wextra -g
 
 all: $(NAME)
 
@@ -21,7 +23,7 @@ clean:
 	$(RM) $(OBJS)
 
 fclean: clean
-	$(RM) $(NAME)
+	$(RM) $(NAME) libmy.a $(VALG)
 
 re: fclean all
 

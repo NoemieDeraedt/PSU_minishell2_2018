@@ -9,6 +9,7 @@
 #include <unistd.h>
 #include <signal.h>
 #include <errno.h>
+#include <stdio.h>
 
 void my_putchar(char c);
 void my_isneg(int nb);
