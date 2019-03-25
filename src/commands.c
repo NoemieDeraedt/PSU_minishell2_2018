@@ -23,13 +23,26 @@ char **create_env(char **env)
     int a;
 
     for (i = 0; env[i]; i++);
-    my_env = malloc(sizeof(char *) * (i - 2));
+    my_env = malloc(sizeof(char *) * (i + 10));
     for (a = 0; env[a]; a++) {
-        my_env[a] = malloc(sizeof(char) * my_strlen(env[a]) + 10);
+        my_env[a] = malloc(sizeof(char) * my_strlen(env[a]));
         for (int b = 0; env[a][b]; b++)
             my_env[a][b] = env[a][b];
     }
     return my_env;
+}
+
+int find_equal(char *name)
+{
+    int j = 0;
+
+    for (int i = 0; name[i]; i++) {
+        if (name[i] == '=')
+            j++;
+    }
+    if (j == 2)
+        return 84;
+    return 0;
 }
 
 void my_setenv(char *input, char **my_env)
@@ -43,11 +56,12 @@ void my_setenv(char *input, char **my_env)
     for (k = 7; input[k]; k++) {
         if (input[k] != ' ' && input[k] != '\n')
             name[n] = input[k];
-        else /*if (input[k] == ' ' && input[k] == '\n')*/
+        else
             name[n] = '=';
         n++;
     }
-    name[n] = '\0';
+    if (find_equal(name) == 84 && name[n - 1] == '=')
+        name[n - 1] = '\0';
     for (a = 0; my_env[a]; a++);
     my_env[a] = malloc(sizeof(char) * my_strlen(name));
     for (j = 0; name[j]; j++)
@@ -58,7 +72,7 @@ void my_setenv(char *input, char **my_env)
 void display_env(char **env)
 {
     for (int j = 0; env[j]; j++)
-        my_printf("%s\n", env[j]);
+        printf("%s\n", env[j]);
 }
 
 void my_cd(char *input)
