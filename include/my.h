@@ -37,3 +37,5 @@ void my_setenv(char *input, char **env);
 void my_exec(char *input, char **env);
 char **create_env(char **env);
 char *counter_file(char *input);
+void my_unsetenv(char *input, char **env);
+int find_env_var(char *input, char **env, int j);

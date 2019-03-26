@@ -7,27 +7,36 @@
 
 #include "my.h"
 
+int compare_args(char *input, char *str)
+{
+    for (int i = 0; i < my_strlen(str); i++) {
+        if (input[i] != str[i])
+            return 84;
+    }
+    return 0;
+}
+
 int check_exit(char *input)
 {
-    if (input[0] == 'e' && input[1] == 'x' && input[2] == 'i' && input[3] == 't'
-        && input[4] == '\n')
+    if (compare_args(input, "exit\n") == 0)
         return 1;
     return 0;
 }
 
 void check_commands(char *input, char **env)
 {
-    if (input[0] == 'c' && input[1] == 'd' && input[2] == ' ')
+    if (compare_args(input, "cd ") == 0)
         my_cd(input);
-    if (input[0] == 'e' && input[1] == 'n' && input[2] == 'v')
+    if (compare_args(input, "env") == 0)
         display_env(env);
-    if (input[0] == 's' && input[1] == 'e' && input[2] == 't' && input[3] == 'e'
-        && input[4] == 'n' && input[5] == 'v') {
+    if (compare_args(input, "setenv") == 0) {
         if (input[6] == ' ')
             my_setenv(input, env);
         else
             display_env(env);
     }
-    if (input[0] == '.' && input[1] == '/')
+    if (compare_args(input, "./") == 0)
         my_exec(input, env);
+    if (compare_args(input, "unsetenv") == 0)
+        my_unsetenv(input, env);
 }

@@ -16,7 +16,10 @@ SRCS	=	$(wildcard ./lib/my/*.c)	\
 
 OBJS	=	$(SRCS:.c=.o)
 
-VALG	=	$(wildcard vgcore*)
+DEL	=	$(wildcard vgcore*)	\
+		$(wildcard ./*.o)	\
+		$(wildcard ./src/*.o)	\
+		$(wildcard ./lib/my/*.o)
 
 CFLAGS = -I ./include/
 CFLAGS += -Wall -Wextra -g
@@ -30,7 +33,7 @@ clean:
 	$(RM) $(OBJS)
 
 fclean: clean
-	$(RM) $(NAME) libmy.a $(VALG)
+	$(RM) $(NAME) libmy.a $(DEL)
 
 re: fclean all
 

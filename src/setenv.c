@@ -45,7 +45,7 @@ int find_equal(char *name)
     return 0;
 }
 
-void my_setenv(char *input, char **my_env)
+void new_env_var(char *input, char **my_env)
 {
     int a;
     int j;
@@ -69,20 +69,43 @@ void my_setenv(char *input, char **my_env)
     free(name);
 }
 
-void display_env(char **env)
+void change_env_var(char *input, char **my_env)
 {
-    for (int j = 0; env[j]; j++)
-        printf("%s\n", env[j]);
+    int i = find_env_var(input, my_env, 7);
+    int a;
+    int j;
+    int k;
+    int n = 0;
+    char *name = malloc(sizeof(char) * (my_strlen(input) - 7));
+
+    free(my_env[i]);
+    for (k = 7; input[k]; k++) {
+        if (input[k] != ' ' && input[k] != '\n')
+            name[n] = input[k];
+        else
+            name[n] = '=';
+        n++;
+    }
+    if (find_equal(name) == 84 && name[n - 1] == '=')
+        name[n - 1] = '\0';
+    my_env[i] = malloc(sizeof(char) * my_strlen(name));
+    for (j = 0; name[j]; j++)
+        my_env[i][j] = name[j];
+    free(name);
 }
 
-void my_cd(char *input)
+void my_setenv(char *input, char **my_env)
 {
-    char *path = malloc(sizeof(char) * my_strlen(input));
-    int i;
+    if (find_env_var(input, my_env, 7) == -1)
+        new_env_var(input, my_env);
+    else 
+        change_env_var(input, my_env);
+}
 
-    for (i = 0; i < my_strlen(input); i++)
-        path[i] = input[i + 3];
-    path[my_strlen(path) - 1] = '\0';
-    chdir(path);
-    free(path);
+void display_env(char **env)
+{
+    int j;
+
+    for (j = 0; env[j]; j++)
+        my_printf("%s\n", env[j]);
 }
