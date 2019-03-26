@@ -30,7 +30,7 @@ void check_commands(char *input, char **env)
     if (compare_args(input, "env") == 0)
         display_env(env);
     if (compare_args(input, "setenv") == 0) {
-        if (input[6] == ' ')
+        if (input[6] == ' ' && input[7] && input[7] != ' ' && input[7] != '\n')
             my_setenv(input, env);
         else
             display_env(env);

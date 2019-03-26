@@ -16,22 +16,6 @@ char *counter_file(char *input)
     return file;
 }
 
-char **create_env(char **env)
-{
-    char **my_env;
-    int i;
-    int a;
-
-    for (i = 0; env[i]; i++);
-    my_env = malloc(sizeof(char *) * (i + 10));
-    for (a = 0; env[a]; a++) {
-        my_env[a] = malloc(sizeof(char) * my_strlen(env[a]));
-        for (int b = 0; env[a][b]; b++)
-            my_env[a][b] = env[a][b];
-    }
-    return my_env;
-}
-
 int find_equal(char *name)
 {
     int j = 0;
@@ -72,7 +56,6 @@ void new_env_var(char *input, char **my_env)
 void change_env_var(char *input, char **my_env)
 {
     int i = find_env_var(input, my_env, 7);
-    int a;
     int j;
     int k;
     int n = 0;
@@ -100,12 +83,4 @@ void my_setenv(char *input, char **my_env)
         new_env_var(input, my_env);
     else 
         change_env_var(input, my_env);
-}
-
-void display_env(char **env)
-{
-    int j;
-
-    for (j = 0; env[j]; j++)
-        my_printf("%s\n", env[j]);
 }
