@@ -18,3 +18,13 @@ void my_cd(char *input)
     chdir(path);
     free(path);
 }
+
+void my_pwd(void)
+{
+    char *buffer = malloc(sizeof(char) * 50);
+    size_t size = 42;
+
+    getcwd(buffer, size);
+    my_printf("%s\n", buffer);
+    free(buffer);
+}

@@ -39,4 +39,6 @@ void check_commands(char *input, char **env)
         my_exec(input, env);
     if (compare_args(input, "unsetenv") == 0)
         my_unsetenv(input, env);
+    if (compare_args(input, "pwd") == 0)
+        my_pwd();
 }

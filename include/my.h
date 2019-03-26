@@ -39,3 +39,4 @@ char **create_env(char **env);
 char *counter_file(char *input);
 int my_unsetenv(char *input, char **env);
 int find_env_var(char *input, char **env, int j);
+void my_pwd(void);
