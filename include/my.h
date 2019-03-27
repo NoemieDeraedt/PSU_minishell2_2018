@@ -43,3 +43,6 @@ char *counter_file(char *input);
 int my_unsetenv(char *input, char **env);
 int find_env_var(char *input, char **env, int j);
 void my_pwd(void);
+int find_semicolon(char *input, int i);
+int count_semicolon(char *input);
+void check_semicolon(char *input, char **env);

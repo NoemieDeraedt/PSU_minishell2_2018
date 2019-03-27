@@ -42,3 +42,35 @@ void check_commands(char *input, char **env)
     if (compare_args(input, "pwd") == 0)
         my_pwd();
 }
+
+char *transform_input(int i, char *input)
+{
+    char *str = malloc(sizeof(char) * my_strlen(input));
+    int j = 0;
+
+    for (; input[i] == ' ' || input[i] == ';'; i++);
+    for (; input[i] != ';' && input[i] != '\n'; i++) {
+        str[j] = input[i];
+        j++;
+    }
+    return str;
+}
+
+void check_semicolon(char *input, char **env)
+{
+    int i = 0;
+    char *str = malloc(sizeof(char) * my_strlen(input));
+
+    if (find_semicolon(input, i) == -1)
+        check_commands(input, env);
+    else {
+        for (int j = 0; j < count_semicolon(input); j++) {
+            for (int k = 0; i != -1; k++) {
+                str = transform_input(i, input);
+                i = find_semicolon(input, i + 1);
+                check_commands(str, env);
+            }
+        }
+    }
+    free(str);
+}
