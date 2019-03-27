@@ -19,7 +19,7 @@ int main(int argc, char **argv, char **env)
     while (check_exit(input) != 1 && size != -1) {
         my_printf("$> ");
         size = getline(&input, &bufsize, stdin);
-        check_commands(input, my_env); 
+        check_commands(input, my_env);
     }
     free(input);
     return 0;

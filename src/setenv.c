@@ -20,10 +20,9 @@ int find_equal(char *name)
 {
     int j = 0;
 
-    for (int i = 0; name[i]; i++) {
+    for (int i = 0; name[i]; i++)
         if (name[i] == '=')
             j++;
-    }
     if (j == 2)
         return 84;
     return 0;
@@ -81,6 +80,6 @@ void my_setenv(char *input, char **my_env)
 {
     if (find_env_var(input, my_env, 7) == -1)
         new_env_var(input, my_env);
-    else 
+    else
         change_env_var(input, my_env);
 }

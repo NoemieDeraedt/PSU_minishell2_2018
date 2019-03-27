@@ -10,6 +10,9 @@
 #include <signal.h>
 #include <errno.h>
 #include <stdio.h>
+#include <sys/types.h>
+#include <signal.h>
+#include <sys/wait.h>
 
 void my_putchar(char c);
 void my_isneg(int nb);
