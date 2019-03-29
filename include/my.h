@@ -46,3 +46,5 @@ void my_pwd(void);
 int find_semicolon(char *input, int i);
 int count_semicolon(char *input);
 void check_semicolon(char *input, char **env);
+int compare_args(char *input, char *str);
+void my_ls(char *input, char **env);
