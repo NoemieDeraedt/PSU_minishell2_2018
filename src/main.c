@@ -19,10 +19,9 @@ int count_semicolon(char *input)
 
 int find_semicolon(char *input, int i)
 {
-    for (; input[i]; i++) {
+    for (; input[i]; i++)
         if (input[i] == ';')
             return i;
-    }
     return -1;
 }
 

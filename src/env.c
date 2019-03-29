@@ -30,4 +30,3 @@ void display_env(char **env)
     for (j = 0; env[j]; j++)
         my_printf("%s\n", env[j]);
 }
-

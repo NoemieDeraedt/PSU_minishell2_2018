@@ -23,7 +23,7 @@ int find_equal(char *name)
     for (int i = 0; name[i]; i++)
         if (name[i] == '=')
             j++;
-    if (j == 2)
+    if (j != 1)
         return 84;
     return 0;
 }
@@ -68,8 +68,8 @@ void change_env_var(char *input, char **my_env)
             name[n] = '=';
         n++;
     }
-    if (find_equal(name) == 84 && name[n - 1] == '=')
-        name[n - 1] = '\0';
+    if (find_equal(name) == 84 && name[n] == '=')
+        name[n] = '\0';
     my_env[i] = malloc(sizeof(char) * my_strlen(name));
     for (j = 0; name[j]; j++)
         my_env[i][j] = name[j];

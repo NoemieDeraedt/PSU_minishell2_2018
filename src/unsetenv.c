@@ -9,10 +9,9 @@
 
 int compare_env(char *input, char *str, int j)
 {
-    for (int i = 0; str[i] != '='; i++) {
+    for (int i = 0; str[i] != '='; i++)
         if (input[i + j] != str[i])
             return 84;
-    }
     return 0;
 }
 
