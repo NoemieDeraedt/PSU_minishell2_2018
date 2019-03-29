@@ -28,3 +28,17 @@ void my_pwd(void)
     my_printf("%s\n", buffer);
     free(buffer);
 }
+
+void my_ls(char *input, char **env)
+{
+    char **argv = argv_in_double_array(input);
+    pid_t pid_fils = fork();
+
+    if (pid_fils == 0)
+        execve("/bin/ls", argv, env);
+    else
+        wait(NULL);
+    if (errno == ENOENT)
+        my_printf("ERROR\n");
+    kill(pid_fils, SIGUSR1);
+}

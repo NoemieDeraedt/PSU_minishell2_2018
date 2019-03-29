@@ -11,7 +11,6 @@
 #include <errno.h>
 #include <stdio.h>
 #include <sys/types.h>
-#include <signal.h>
 #include <sys/wait.h>
 
 void my_putchar(char c);
@@ -48,3 +47,4 @@ int count_semicolon(char *input);
 void check_semicolon(char *input, char **env);
 int compare_args(char *input, char *str);
 void my_ls(char *input, char **env);
+char **argv_in_double_array(char *input);

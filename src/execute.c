@@ -14,15 +14,16 @@ char **argv_in_double_array(char *input)
     char **argv = malloc(sizeof(char) * 100);
 
     argv[0] = malloc(sizeof(char) * 100);
-    for (int j = 0; input[j]; j++)
+    for (int j = 0; input[j] != '\n'; j++) {
         if (input[j] == ' ') {
-            argv[k] = malloc(sizeof(char) * 100);
             k++;
+            argv[k] = malloc(sizeof(char) * 100);
             p = 0;
         } else {
             argv[k][p] = input[j];
             p++;
         }
+    }
     return argv;
 }
 
@@ -35,23 +36,6 @@ void my_exec(char *input, char **env)
     file[my_strlen(file) - 1] = '\0';
     if (pid_fils == 0)
         execve(file, argv, env);
-    else
-        wait(NULL);
-    if (errno == ENOENT)
-        my_printf("ERROR\n");
-    kill(pid_fils, SIGUSR1);
-    free(file);
-}
-
-void my_ls(char *input, char **env)
-{
-    char *file = counter_file(input);
-    char **argv = argv_in_double_array(input);
-    pid_t pid_fils = fork();
-
-    file[my_strlen(file) - 1] = '\0';
-    if (pid_fils == 0)
-        execve("/bin/ls", argv, env);
     else
         wait(NULL);
     if (errno == ENOENT)

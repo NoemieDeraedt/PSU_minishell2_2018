@@ -22,7 +22,7 @@ int check_no_commands(char *input)
     compare_args(input, "setenv") != 0 && compare_args(input, "./") != 0 &&
     compare_args(input, "unsetenv") != 0 && compare_args(input, "pwd") != 0 &&
     compare_args(input, "exit\n") != 0 && compare_args(input, "ls") != 0) {
-        for (int i = 0; input[i] != ' ' && input[i]; i++)
+        for (int i = 0; input[i] != ' ' && input[i] != '\n'; i++)
             write(2, &input[i], 1);
         write(2, ": Command not found.\n", 22);
         return 0;
