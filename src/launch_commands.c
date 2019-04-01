@@ -16,23 +16,27 @@ char *counter_file(char *input)
     return file;
 }
 
-int check_no_commands(char *input)
+int check_no_commands(char *input, char **env)
 {
     if (compare_args(input, "cd ") != 0 && compare_args(input, "env") != 0 &&
     compare_args(input, "setenv") != 0 && compare_args(input, "./") != 0 &&
     compare_args(input, "unsetenv") != 0 && compare_args(input, "pwd") != 0 &&
     compare_args(input, "exit\n") != 0 && compare_args(input, "ls") != 0) {
-        for (int i = 0; input[i] != ' ' && input[i] != '\n'; i++)
+        if (exec_command(input, env) == 0)
+            return 0;
+        else {
+            for (int i = 0; input[i] != ' ' && input[i] != '\n'; i++)
             write(2, &input[i], 1);
-        write(2, ": Command not found.\n", 22);
-        return 0;
+            write(2, ": Command not found.\n", 22);
+            return 0;
+        }
     }
     return 1;
 }
 
 void check_commands(char *input, char **env)
 {
-    if (check_no_commands(input) == 0)
+    if (check_no_commands(input, env) == 0)
         return;
     if (compare_args(input, "cd ") == 0)
         my_cd(input);

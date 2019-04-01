@@ -12,6 +12,8 @@
 #include <stdio.h>
 #include <sys/types.h>
 #include <sys/wait.h>
+#include <sys/stat.h>
+#include <fcntl.h>
 
 void my_putchar(char c);
 void my_isneg(int nb);
@@ -48,3 +50,4 @@ void check_semicolon(char *input, char **env);
 int compare_args(char *input, char *str);
 void my_ls(char *input, char **env);
 char **argv_in_double_array(char *input);
+int exec_command(char *input, char **env);

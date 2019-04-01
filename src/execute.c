@@ -36,11 +36,47 @@ void my_exec(char *input, char **env)
     pid_t pid_fils = fork();
 
     file[my_strlen(file) - 1] = '\0';
-    if (pid_fils == 0) {
+    if (pid_fils == 0)
         execve(file, argv, env);
-        my_printf("FAILED");
-    } else
+    else
         wait(NULL);
     kill(pid_fils, SIGUSR1);
     free(file);
+}
+
+char *my_strconcat(char *str1, char *str2)
+{
+    int i;
+    int j = 0;
+    char *dest = malloc(sizeof(char) * (my_strlen(str1) + my_strlen(str2)));
+
+    for (i = 0; i < my_strlen(str1); i++)
+        dest[i] = str1[i];
+    for (; i < my_strlen(str1) + my_strlen(str2); i++, j++)
+        dest[i] = str2[j];
+    return dest;
+}
+
+int exec_command(char *input, char **env)
+{
+    char *file = my_strconcat("/bin/", input);
+    char **argv = argv_in_double_array(input);
+    char *new = malloc(sizeof(char) * my_strlen(file));
+    pid_t pid_fils;
+
+    for (int i = 0; file[i] != ' ' && file[i] != '\n'; i++)
+        new[i] = file[i];
+    
+    int fd = open(new, O_RDONLY);
+    if (fd == -1) {
+        return -1;
+    }
+    pid_fils = fork();
+    if (pid_fils == 0)
+        execve(new, argv, env);
+    else
+        wait(NULL);
+    kill(pid_fils, SIGUSR1);
+    free(file);
+    return 0;
 }
