@@ -15,6 +15,8 @@ char **argv_in_double_array(char *input)
 
     argv[0] = malloc(sizeof(char) * 100);
     for (int j = 0; input[j] != '\n'; j++) {
+        if (input[j] == ';' || input[j] == '\0')
+            return argv;
         if (input[j] == ' ') {
             k++;
             argv[k] = malloc(sizeof(char) * 100);
@@ -34,12 +36,11 @@ void my_exec(char *input, char **env)
     pid_t pid_fils = fork();
 
     file[my_strlen(file) - 1] = '\0';
-    if (pid_fils == 0)
+    if (pid_fils == 0) {
         execve(file, argv, env);
-    else
+        my_printf("FAILED");
+    } else
         wait(NULL);
-    if (errno == ENOENT)
-        my_printf("ERROR\n");
     kill(pid_fils, SIGUSR1);
     free(file);
 }
