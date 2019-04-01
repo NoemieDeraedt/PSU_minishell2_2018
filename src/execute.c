@@ -44,19 +44,6 @@ void my_exec(char *input, char **env)
     free(file);
 }
 
-char *my_strconcat(char *str1, char *str2)
-{
-    int i;
-    int j = 0;
-    char *dest = malloc(sizeof(char) * (my_strlen(str1) + my_strlen(str2)));
-
-    for (i = 0; i < my_strlen(str1); i++)
-        dest[i] = str1[i];
-    for (; i < my_strlen(str1) + my_strlen(str2); i++, j++)
-        dest[i] = str2[j];
-    return dest;
-}
-
 int exec_command(char *input, char **env)
 {
     char *file = my_strconcat("/bin/", input);
@@ -66,11 +53,8 @@ int exec_command(char *input, char **env)
 
     for (int i = 0; file[i] != ' ' && file[i] != '\n'; i++)
         new[i] = file[i];
-    
-    int fd = open(new, O_RDONLY);
-    if (fd == -1) {
+    if (open(new, O_RDONLY) == -1)
         return -1;
-    }
     pid_fils = fork();
     if (pid_fils == 0)
         execve(new, argv, env);

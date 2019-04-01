@@ -41,6 +41,8 @@ void check_semicolon(char *input, char **env)
     int i = 0;
     char *str = malloc(sizeof(char) * my_strlen(input));
 
+    if (input[0] == '\n')
+        return;
     if (find_semicolon(input, i) == -1)
         check_commands(input, env);
     else {

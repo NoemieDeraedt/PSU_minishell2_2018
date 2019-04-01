@@ -29,6 +29,7 @@ char *my_strcat(char *dest, char const *src);
 char *my_strncat(char *dest, char const *src, int nb);
 char *my_strdup(char const *src);
 void my_show_word_array(char *const *tab);
+char *my_strconcat(char *str1, char *str2);
 char *int_to_char(int number);
 char *number_in_array(char *str, int value);
 char *get_next_line(int fd);

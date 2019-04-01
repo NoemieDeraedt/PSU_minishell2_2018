@@ -38,7 +38,5 @@ void my_ls(char *input, char **env)
         execve("/bin/ls", argv, env);
     else
         wait(NULL);
-    if (errno == ENOENT)
-        my_printf("ERROR\n");
     kill(pid_fils, SIGUSR1);
 }
