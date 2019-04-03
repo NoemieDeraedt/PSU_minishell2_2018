@@ -18,6 +18,7 @@ char **argv_in_double_array(char *input)
         if (input[j] == ';' || input[j] == '\0')
             return argv;
         if (input[j] == ' ') {
+            argv[k][p] = '\0';
             k++;
             argv[k] = malloc(sizeof(char) * 100);
             p = 0;
@@ -27,6 +28,7 @@ char **argv_in_double_array(char *input)
             p++;
         }
     }
+    argv[k + 1] = NULL;
     return argv;
 }
 
@@ -50,10 +52,12 @@ int exec_command(char *input, char **env)
     char *file = my_strconcat("/bin/", input);
     char **argv = argv_in_double_array(input);
     char *new = malloc(sizeof(char) * my_strlen(file));
+    int i;
     pid_t pid_fils;
 
-    for (int i = 0; file[i] != ' ' && file[i] != '\n'; i++)
+    for (i = 0; file[i] != ' ' && file[i] != '\n'; i++)
         new[i] = file[i];
+    new[i] = '\0';
     if (open(new, O_RDONLY) == -1)
         return -1;
     pid_fils = fork();

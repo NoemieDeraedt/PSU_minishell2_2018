@@ -34,6 +34,7 @@ int main(int argc, char **argv, char **env)
 
     if (argc != 1)
         return 84;
+    check_malloc(input);
     input[0] = '\0';
     while (check_exit(input) != 1 && size != -1) {
         my_printf("$> ");
