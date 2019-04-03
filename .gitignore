@@ -5,3 +5,5 @@ mysh
 vgcore*
 test*
 README
+my_segfault
+my_divzero

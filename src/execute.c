@@ -36,9 +36,16 @@ void my_exec(char *input, char **env)
 {
     char *file = counter_file(input);
     char **argv = argv_in_double_array(input);
-    pid_t pid_fils = fork();
+    pid_t pid_fils;
 
     file[my_strlen(file) - 1] = '\0';
+    if (open(file, O_RDONLY) == -1) {
+        write(2, "./", 2);
+        write(2, file, my_strlen(file));
+        write(2, ": Command not found.\n", 22);
+        return;
+    }
+    pid_fils = fork();
     if (pid_fils == 0)
         execve(file, argv, env);
     else
