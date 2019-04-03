@@ -14,6 +14,7 @@
 #include <sys/wait.h>
 #include <sys/stat.h>
 #include <fcntl.h>
+#include <string.h>
 
 void my_putchar(char c);
 void my_isneg(int nb);
@@ -52,3 +53,4 @@ int compare_args(char *input, char *str);
 void my_ls(char *input, char **env);
 char **argv_in_double_array(char *input);
 int exec_command(char *input, char **env);
+void check_malloc(char *str);

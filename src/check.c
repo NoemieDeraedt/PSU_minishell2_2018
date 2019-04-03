@@ -9,10 +9,9 @@
 
 int compare_args(char *input, char *str)
 {
-    for (int i = 0; i < my_strlen(str); i++) {
+    for (int i = 0; i < my_strlen(str); i++)
         if (input[i] != str[i])
             return 84;
-    }
     return 0;
 }
 
@@ -28,6 +27,7 @@ char *transform_input(int i, char *input)
     char *str = malloc(sizeof(char) * my_strlen(input));
     int j = 0;
 
+    check_malloc(str);
     for (; input[i] == ' ' || input[i] == ';'; i++);
     for (; input[i] != ';' && input[i] != '\n'; i++) {
         str[j] = input[i];
@@ -41,7 +41,8 @@ void check_semicolon(char *input, char **env)
     int i = 0;
     char *str = malloc(sizeof(char) * my_strlen(input));
 
-    if (input[0] == '\n')
+    check_malloc(str);
+    if (input[0] == '\n' || input[0] == '\t' || input[0] == ' ')
         return;
     if (find_semicolon(input, i) == -1)
         check_commands(input, env);

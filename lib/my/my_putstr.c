@@ -9,8 +9,5 @@
 
 void my_putstr(char const *str)
 {
-    int i;
-
-    for (i = 0; str[i]; i++)
-        my_putchar(str[i]);
+    write(1, str, my_strlen(str));
 }

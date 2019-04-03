@@ -21,6 +21,7 @@ char **argv_in_double_array(char *input)
             k++;
             argv[k] = malloc(sizeof(char) * 100);
             p = 0;
+            check_malloc(argv[k]);
         } else {
             argv[k][p] = input[j];
             p++;

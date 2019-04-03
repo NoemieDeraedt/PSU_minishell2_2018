@@ -39,6 +39,7 @@ void new_env_var(char *input, char **my_env)
     int n = 0;
     char *name = malloc(sizeof(char) * (my_strlen(input) - 7));
 
+    check_malloc(name);
     if (check_alphanum(input) == 1)
         return;
     for (int k = 7; input[k]; k++, n++) {
@@ -64,6 +65,7 @@ void change_env_var(char *input, char **my_env)
     int n = 0;
     char *name = malloc(sizeof(char) * (my_strlen(input) - 7));
 
+    check_malloc(name);
     free(my_env[i]);
     for (k = 7; input[k]; k++) {
         if (input[k] != ' ' && input[k] != '\n')
@@ -75,6 +77,7 @@ void change_env_var(char *input, char **my_env)
     if (find_equal(name) == 84 && name[n] == '=')
         name[n] = '\0';
     my_env[i] = malloc(sizeof(char) * my_strlen(name));
+    check_malloc(my_env[i]);
     for (j = 0; name[j]; j++)
         my_env[i][j] = name[j];
     free(name);

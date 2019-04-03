@@ -34,11 +34,15 @@ int main(int argc, char **argv, char **env)
 
     if (argc != 1)
         return 84;
+    input[0] = '\0';
     while (check_exit(input) != 1 && size != -1) {
         my_printf("$> ");
         size = getline(&input, &bufsize, stdin);
         check_semicolon(input, my_env);
     }
     free(input);
+    for (int i = 0; my_env[i]; i++)
+        free(my_env[i]);
+    free(my_env);
     return 0;
 }

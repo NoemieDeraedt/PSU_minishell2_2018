@@ -11,6 +11,7 @@ char *counter_file(char *input)
 {
     char *file = malloc(sizeof(char) * (my_strlen(input) - 2));
 
+    check_malloc(file);
     for (int i = 0; input[i]; i++)
         file[i] = input[i + 2];
     return file;
