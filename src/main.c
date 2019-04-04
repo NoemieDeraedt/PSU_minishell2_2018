@@ -29,7 +29,7 @@ int main(int argc, char **argv, char **env)
 {
     char *input = malloc(sizeof(char) * 1000);
     char **my_env = create_env(env);
-    size_t bufsize = 32;
+    size_t bufsize;
     int size = 0;
 
     if (argc != 1)

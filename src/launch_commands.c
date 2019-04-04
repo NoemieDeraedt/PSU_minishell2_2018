@@ -27,7 +27,7 @@ int check_no_commands(char *input, char **env)
             return 0;
         else {
             for (int i = 0; input[i] != ' ' && input[i] != '\n'; i++)
-            write(2, &input[i], 1);
+                write(2, &input[i], 1);
             write(2, ": Command not found.\n", 22);
             return 0;
         }

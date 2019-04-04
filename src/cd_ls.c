@@ -16,6 +16,10 @@ void my_cd(char *input)
         path[i] = input[i + 3];
     path[my_strlen(path) - 1] = '\0';
     chdir(path);
+    if (errno == ENOTDIR && path[0] != '.' && path[1] != '.') {
+        write(2, path, my_strlen(path));
+        write(2, ": Not a directory.\n", 20);
+    }
     free(path);
 }
 

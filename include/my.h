@@ -54,3 +54,5 @@ void my_ls(char *input, char **env);
 char **argv_in_double_array(char *input);
 int exec_command(char *input, char **env);
 void check_malloc(char *str);
+void command_not_found(char *str);
+void permission_denied(char *str);
