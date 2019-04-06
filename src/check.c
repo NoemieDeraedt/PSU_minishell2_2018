@@ -47,7 +47,7 @@ void check_semicolon(char *input, char **env)
     if (find_semicolon(input, i) == -1)
         check_commands(input, env);
     else {
-        for (int j = 0; j < count_semicolon(input); j++) {
+        for (int j = 0; j < count_semicolon(input) + 1; j++) {
             for (int k = 0; i != -1; k++) {
                 str = transform_input(i, input);
                 i = find_semicolon(input, i + 1);

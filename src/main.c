@@ -39,7 +39,9 @@ int main(int argc, char **argv, char **env)
     while (check_exit(input) != 1 && size != -1) {
         my_printf("$> ");
         size = getline(&input, &bufsize, stdin);
-        check_semicolon(input, my_env);
+        input = delete_spaces(input);
+        if (input != NULL)
+            check_semicolon(input, my_env);
     }
     free(input);
     for (int i = 0; my_env[i]; i++)

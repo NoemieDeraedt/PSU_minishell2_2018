@@ -22,13 +22,13 @@ int check_no_commands(char *input, char **env)
     if (compare_args(input, "cd ") != 0 && compare_args(input, "env") != 0 &&
     compare_args(input, "setenv") != 0 && compare_args(input, "./") != 0 &&
     compare_args(input, "unsetenv") != 0 && compare_args(input, "pwd") != 0 &&
-    compare_args(input, "exit\n") != 0 && compare_args(input, "ls") != 0) {
+    compare_args(input, "exit\n") != 0) {
         if (exec_command(input, env) == 0)
             return 0;
         else {
             for (int i = 0; input[i] != ' ' && input[i] != '\n'; i++)
                 write(2, &input[i], 1);
-            write(2, ": Command not found.\n", 22);
+            my_error(": Command not found.\n");
             return 0;
         }
     }
@@ -55,6 +55,4 @@ void check_commands(char *input, char **env)
         my_unsetenv(input, env);
     if (compare_args(input, "pwd") == 0)
         my_pwd();
-    if (compare_args(input, "ls") == 0)
-        my_ls(input, env);
 }

@@ -56,3 +56,5 @@ int exec_command(char *input, char **env);
 void check_malloc(char *str);
 void command_not_found(char *str);
 void permission_denied(char *str);
+void my_error(char *str);
+char *delete_spaces(char *str);

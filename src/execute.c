@@ -35,11 +35,11 @@ char **argv_in_double_array(char *input)
 void check_status(int status)
 {
     if (status == 136)
-        write(2, "Floating exception (core dumped)\n", 34);
+        my_error("Floating exception\n");
     if (status == 139)
-        write(2, "Segmentation fault (core dumped)\n", 34);
+        my_error("Segmentation fault\n");
     if (status == 134)
-        write(2, "Abort (core dumped)\n", 21);
+        my_error("Abort\n");
 }
 
 void my_exec(char *input, char **env)
@@ -62,7 +62,6 @@ void my_exec(char *input, char **env)
         execve(file, argv, env);
     else {
         waitpid(pid_fils, &status, 0);
-        my_printf("status: %d\n", status);
         check_status(status);
     }
     kill(pid_fils, SIGUSR1);
