@@ -25,6 +25,14 @@ int find_semicolon(char *input, int i)
     return -1;
 }
 
+void free_assets(char **my_env, char *input)
+{
+    free(input);
+    for (int i = 0; my_env[i]; i++)
+        free(my_env[i]);
+    free(my_env);
+}
+
 int main(int argc, char **argv, char **env)
 {
     char *input = malloc(sizeof(char) * 1000);
@@ -43,9 +51,6 @@ int main(int argc, char **argv, char **env)
         if (input != NULL)
             check_semicolon(input, my_env);
     }
-    free(input);
-    for (int i = 0; my_env[i]; i++)
-        free(my_env[i]);
-    free(my_env);
+    free_assets(my_env, input);
     return 0;
 }
