@@ -16,7 +16,7 @@ char *delete_spaces(char *str)
     for (int i = 0; str[i] == ' ' || str[i] == '\t'; i++)
         if (str[i] == ' ' || str[i] == '\t')
             str[i] = '~';
-    for (int i = len_str - 2; str[i] == ' ' || str[i] == '\t'; i--)
+    for (int i = len_str - 1; str[i] == ' ' || str[i] == '\t'; i--)
         if (str[i] == ' ' || str[i] == '\t')
             str[i] = '~';
     for (int i = 0; i < my_strlen(str); i++)

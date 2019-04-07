@@ -76,7 +76,7 @@ int exec_command(char *input, char **env)
     int i;
     pid_t pid_fils;
 
-    for (i = 0; file[i] != ' ' && file[i] != '\n'; i++)
+    for (i = 0; file[i] && file[i] != ' ' && file[i] != '\n'; i++)
         new[i] = file[i];
     new[i] = '\0';
     if (open(new, O_RDONLY) == -1)

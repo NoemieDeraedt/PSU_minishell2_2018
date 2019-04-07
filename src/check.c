@@ -51,7 +51,7 @@ void check_semicolon(char *input, char **env)
             for (int k = 0; i != -1; k++) {
                 str = transform_input(i, input);
                 i = find_semicolon(input, i + 1);
-                check_commands(str, env);
+                check_commands(delete_spaces(str), env);
             }
         }
     }
