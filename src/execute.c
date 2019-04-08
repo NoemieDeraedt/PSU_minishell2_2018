@@ -42,6 +42,22 @@ void check_status(int status)
         my_error("Abort\n");
 }
 
+int check_errors(char *file)
+{
+    if (access(file, X_OK) == -1) {
+        if (errno == EACCES)
+            permission_denied(file);
+        if (errno == ENOENT)
+            command_not_found(file);
+        return 84;
+    }
+    if (opendir(file) != NULL) {
+        permission_denied(file);
+        return 84;
+    }
+    return 0;
+}
+
 void my_exec(char *input, char **env)
 {
     char *file = counter_file(input);
@@ -50,13 +66,8 @@ void my_exec(char *input, char **env)
     int status;
 
     file[my_strlen(file) - 1] = '\0';
-    if (access(file, X_OK) == -1) {
-        if (errno == EACCES)
-            permission_denied(file);
-        if (errno == ENOENT)
-            command_not_found(file);
+    if (check_errors(file) == 84)
         return;
-    }
     pid_fils = fork();
     if (pid_fils == 0)
         execve(file, argv, env);

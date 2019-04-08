@@ -15,6 +15,7 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <string.h>
+#include <dirent.h>
 
 void my_putchar(char c);
 void my_isneg(int nb);
