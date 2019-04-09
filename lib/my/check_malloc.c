@@ -12,3 +12,9 @@ void check_malloc(char *str)
     if (!str)
         exit(84);
 }
+
+void check_double_malloc(char **str)
+{
+    if (str == NULL)
+        exit(84);
+}

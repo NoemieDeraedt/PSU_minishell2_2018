@@ -17,10 +17,10 @@ int count_semicolon(char *input)
     return j;
 }
 
-int find_semicolon(char *input, int i)
+int find_char(char *input, int i, char c)
 {
     for (; input[i]; i++)
-        if (input[i] == ';')
+        if (input[i] == c)
             return i;
     return -1;
 }
@@ -37,7 +37,7 @@ int main(int argc, char **argv, char **env)
 {
     char *input = malloc(sizeof(char) * 1000);
     char **my_env = create_env(env);
-    size_t bufsize;
+    size_t bufsize = 1000;
     int size = 0;
 
     if (argc != 1)
@@ -47,9 +47,9 @@ int main(int argc, char **argv, char **env)
     while (check_exit(input) != 1 && size != -1) {
         my_printf("$> ");
         size = getline(&input, &bufsize, stdin);
-        input = delete_spaces(input);
+        delete_spaces(input, input);
         if (input != NULL)
-            check_semicolon(input, my_env);
+            check_sep(input, my_env);
     }
     free_assets(my_env, input);
     return 0;

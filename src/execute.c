@@ -87,6 +87,7 @@ int exec_command(char *input, char **env)
     int i;
     pid_t pid_fils;
 
+    check_malloc(new);
     for (i = 0; file[i] && file[i] != ' ' && file[i] != '\n'; i++)
         new[i] = file[i];
     new[i] = '\0';

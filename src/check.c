@@ -22,38 +22,24 @@ int check_exit(char *input)
     return 0;
 }
 
-char *transform_input(int i, char *input)
+void transform_input(int i, char *input, char sep, char *str)
 {
-    char *str = malloc(sizeof(char) * my_strlen(input));
     int j = 0;
 
-    check_malloc(str);
-    for (; input[i] == ' ' || input[i] == ';'; i++);
-    for (; input[i] != ';' && input[i] != '\n'; i++) {
+    for (; input[i] == ' ' || input[i] == sep; i++);
+    for (; input[i] != sep && input[i] != '\n'; i++) {
         str[j] = input[i];
         j++;
     }
-    return str;
+    delete_spaces(str, str);
 }
 
-void check_semicolon(char *input, char **env)
+int find_right_redirect(char *input)
 {
-    int i = 0;
-    char *str = malloc(sizeof(char) * my_strlen(input));
+    int count = 0;
 
-    check_malloc(str);
-    if (input[0] == '\n' || input[0] == '\t' || input[0] == ' ')
-        return;
-    if (find_semicolon(input, i) == -1)
-        check_commands(input, env);
-    else {
-        for (int j = 0; j < count_semicolon(input) + 1; j++) {
-            for (int k = 0; i != -1; k++) {
-                str = transform_input(i, input);
-                i = find_semicolon(input, i + 1);
-                check_commands(delete_spaces(str), env);
-            }
-        }
-    }
-    free(str);
+    for (int i = 0; input[i]; i++)
+        if (input[i] == '>')
+            count++;
+    return count;
 }

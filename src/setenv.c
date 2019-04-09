@@ -51,6 +51,7 @@ void new_env_var(char *input, char **my_env)
         name[n - 1] = '\0';
     for (a = 0; my_env[a]; a++);
     my_env[a] = malloc(sizeof(char) * my_strlen(name));
+    check_malloc(my_env[a]);
     for (j = 0; name[j]; j++)
         my_env[a][j] = name[j];
     free(name);
