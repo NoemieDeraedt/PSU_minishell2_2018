@@ -49,7 +49,8 @@ int main(int argc, char **argv, char **env)
         my_printf("$> ");
         size = getline(&input, &bufsize, stdin);
         delete_spaces(input, input);
-        check_sep(input, my_env);
+        if (check_sep(input, my_env) == 84)
+            return 84;
     }
     free_assets(my_env, input);
     return 0;

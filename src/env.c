@@ -16,10 +16,12 @@ char **create_env(char **env)
 
     for (i = 0; env[i]; i++);
     my_env = malloc(sizeof(char *) * (i + 10));
-    check_double_malloc(my_env);
+    if (my_env == NULL)
+        return NULL;
     for (a = 0; env[a]; a++) {
         my_env[a] = malloc(sizeof(char) * (my_strlen(env[a]) + 1));
-        check_malloc(my_env[a]);
+        if (my_env[a] == NULL)
+            return NULL;
         for (b = 0; b < my_strlen(env[a]); b++)
             my_env[a][b] = env[a][b];
     }

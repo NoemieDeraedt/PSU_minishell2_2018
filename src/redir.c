@@ -7,7 +7,7 @@
 
 #include "my.h"
 
-void right_redir(char *input, char **env)
+int right_redir(char *input, char **env)
 {
     char **str = malloc(sizeof(char) * 2);
     int i = 0;
@@ -15,11 +15,13 @@ void right_redir(char *input, char **env)
     pid_t pid;
     int status;
 
-    check_double_malloc(str);
+    if (str == NULL)
+        return 84;
     for (int j = 0; j < find_right_redirect(input) + 1; j++) {
         for (int k = 0; i != -1; k++) {
             str[k] = malloc(sizeof(char) * my_strlen(input));
-            check_malloc(str[k]);
+            if (str[k] == NULL)
+                return 84;
             transform_input(i, input, '>', str[k]);
             i = find_char(input, i + 1, '>');
         }
@@ -30,15 +32,12 @@ void right_redir(char *input, char **env)
     if (pid != 0) {
         dup2(fd, 1);
         check_commands(str[0], env);
-    } else {
+        exit(pid);
+    } else
         waitpid(pid, &status, 0);
-    }
-    if (status)
-        kill(pid, status);
-    else
-        kill(pid, 0);
     close(fd);
     for (int i = 0; i < 2; i++)
         free(str[i]);
     free(str);
+    return 0;
 }

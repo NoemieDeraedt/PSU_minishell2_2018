@@ -7,7 +7,7 @@
 
 #include "my.h"
 
-char *semicolon(char **env, char *input, char *str)
+int semicolon(char **env, char *input, char *str)
 {
     int i = 0;
 
@@ -18,23 +18,29 @@ char *semicolon(char **env, char *input, char *str)
             redirections(env, str);
         }
     }
-    return str;
+    return 0;
 }
 
-void redirections(char **env, char *input)
+int redirections(char **env, char *input)
 {
-    if (find_right_redirect(input) == 0)
-        pipes(env, input);
-    else
-        right_redir(input, env);
+    if (find_right_redirect(input) == 0) {
+        if (pipes(env, input) == 84)
+            return 84;
+    } else {
+        if (right_redir(input, env) == 84)
+            return 84;
+    }
+    return 0;
 }
 
-void pipes(char **env, char *input)
+int pipes(char **env, char *input)
 {
     int i = 0;
     char *str = malloc(sizeof(char) * my_strlen(input));
     char *str2 = malloc(sizeof(char) * my_strlen(str));
 
+    if (str == NULL || str2 == NULL)
+        return 84;
     if (find_char(input, 0, '|') != -1) {
         transform_input(i, input, '|', str);
         i = find_char(input, i + 1, '|');
@@ -42,21 +48,29 @@ void pipes(char **env, char *input)
         transform_input(i, input, '|', str);
         i = find_char(input, i + 1, '|');
         pipe_func(env, str, str2);
-    } else
-        check_commands(input, env);
+    } else {
+        if (check_commands(input, env) == 84)
+            return 84;
+    }
     free(str2);
+    return 0;
 }
 
-void check_sep(char *input, char **env)
+int check_sep(char *input, char **env)
 {
     char *str = malloc(sizeof(char) * my_strlen(input));
 
-    check_malloc(str);
+    if (str == NULL)
+        return 84;
     if (input[0] == '\n' || input[0] == '\t' || input[0] == ' ')
-        return;
-    if (find_char(input, 0, ';') == -1)
-        redirections(env, input);
-    else
-        semicolon(env, input, str);
+        return 0;
+    if (find_char(input, 0, ';') == -1) {
+        if (redirections(env, input) == 84)
+            return 84;
+    } else {
+        if (semicolon(env, input, str))
+            return 84;
+    }
     free(str);
+    return 0;
 }

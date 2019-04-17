@@ -13,7 +13,11 @@ char **argv_in_double_array(char *input)
     int p = 0;
     char **argv = malloc(sizeof(char) * 100);
 
+    if (argv == NULL)
+        return NULL;
     argv[0] = malloc(sizeof(char) * 100);
+    if (argv[0] == NULL)
+        return NULL;
     for (int j = 0; input[j] != '\n'; j++) {
         if (input[j] == ';' || input[j] == '\0')
             return argv;
@@ -21,8 +25,9 @@ char **argv_in_double_array(char *input)
             argv[k][p] = '\0';
             k++;
             argv[k] = malloc(sizeof(char) * 100);
+            if (argv[k] == NULL)
+                return NULL;
             p = 0;
-            check_malloc(argv[k]);
         } else {
             argv[k][p] = input[j];
             p++;
@@ -58,16 +63,18 @@ int check_errors(char *file)
     return 0;
 }
 
-void my_exec(char *input, char **env)
+int my_exec(char *input, char **env)
 {
     char *file = counter_file(input);
     char **argv = argv_in_double_array(input);
     pid_t pid_fils;
     int status;
 
+    if (argv == NULL || file == NULL)
+        return 84;
     file[my_strlen(file) - 1] = '\0';
     if (check_errors(file) == 84)
-        return;
+        return 0;
     pid_fils = fork();
     if (pid_fils == 0)
         execve(file, argv, env);
@@ -77,6 +84,7 @@ void my_exec(char *input, char **env)
     }
     kill(pid_fils, status);
     free(file);
+    return 0;
 }
 
 int exec_command(char *input, char **env)
@@ -87,7 +95,8 @@ int exec_command(char *input, char **env)
     int i;
     pid_t pid_fils;
 
-    check_malloc(new);
+    if (file == NULL || argv == NULL || new == NULL)
+        return 84;
     for (i = 0; file[i] && file[i] != ' ' && file[i] != '\n'; i++)
         new[i] = file[i];
     new[i] = '\0';
