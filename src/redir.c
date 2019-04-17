@@ -13,6 +13,7 @@ void right_redir(char *input, char **env)
     int i = 0;
     int fd;
     pid_t pid;
+    int status;
 
     check_double_malloc(str);
     for (int j = 0; j < find_right_redirect(input) + 1; j++) {
@@ -23,11 +24,20 @@ void right_redir(char *input, char **env)
             i = find_char(input, i + 1, '>');
         }
     }
+    str[1][my_strlen(str[1]) - 1] = '\0';
     pid = fork();
-    fd = open(str[1], O_RDWR | O_CREAT, S_IRUSR | S_IWUSR);
-    dup2(fd, 1);
-    check_commands(str[0], env);
-    kill(pid, SIGUSR1);
+    fd = open(str[1], O_CREAT | O_RDWR, S_IRUSR | S_IWUSR);
+    if (pid != 0) {
+        dup2(fd, 1);
+        check_commands(str[0], env);
+    } else {
+        waitpid(pid, &status, 0);
+    }
+    if (status)
+        kill(pid, status);
+    else
+        kill(pid, 0);
+    close(fd);
     for (int i = 0; i < 2; i++)
         free(str[i]);
     free(str);

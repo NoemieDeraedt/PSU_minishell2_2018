@@ -15,7 +15,6 @@ char *semicolon(char **env, char *input, char *str)
         for (int k = 0; i != -1; k++) {
             transform_input(i, input, ';', str);
             i = find_char(input, i + 1, ';');
-            // check_commands(str, env);
             redirections(env, str);
         }
     }
@@ -25,14 +24,27 @@ char *semicolon(char **env, char *input, char *str)
 void redirections(char **env, char *input)
 {
     if (find_right_redirect(input) == 0)
-        check_commands(input, env);
+        pipes(env, input);
     else
         right_redir(input, env);
 }
 
 void pipes(char **env, char *input)
 {
+    int i = 0;
+    char *str = malloc(sizeof(char) * my_strlen(input));
+    char *str2 = malloc(sizeof(char) * my_strlen(str));
 
+    if (find_char(input, 0, '|') != -1) {
+        transform_input(i, input, '|', str);
+        i = find_char(input, i + 1, '|');
+        my_strcpy(str2, str);
+        transform_input(i, input, '|', str);
+        i = find_char(input, i + 1, '|');
+        pipe_func(env, str, str2);
+    } else
+        check_commands(input, env);
+    free(str2);
 }
 
 void check_sep(char *input, char **env)

@@ -75,7 +75,7 @@ void my_exec(char *input, char **env)
         waitpid(pid_fils, &status, 0);
         check_status(status);
     }
-    kill(pid_fils, SIGUSR1);
+    kill(pid_fils, status);
     free(file);
 }
 

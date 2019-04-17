@@ -35,7 +35,6 @@ int check_alphanum(char *input)
 void new_env_var(char *input, char **my_env)
 {
     int a;
-    int j;
     int n = 0;
     char *name = malloc(sizeof(char) * (my_strlen(input) - 6));
 
@@ -52,7 +51,7 @@ void new_env_var(char *input, char **my_env)
     for (a = 0; my_env[a]; a++);
     my_env[a] = malloc(sizeof(char) * my_strlen(name));
     check_malloc(my_env[a]);
-    for (j = 0; name[j]; j++)
+    for (int j = 0; name[j]; j++)
         my_env[a][j] = name[j];
     free(name);
 }

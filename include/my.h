@@ -64,3 +64,5 @@ int find_right_redirect(char *input);
 void right_redir(char *input, char **env);
 void redirections(char **env, char *input);
 void check_double_malloc(char **str);
+void pipes(char **env, char *input);
+void pipe_func(char **env, char *str, char *str2);

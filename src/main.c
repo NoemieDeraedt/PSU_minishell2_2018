@@ -42,14 +42,14 @@ int main(int argc, char **argv, char **env)
 
     if (argc != 1)
         return 84;
-    check_malloc(input);
+    if (input == NULL)
+        return 84;
     input[0] = '\0';
     while (check_exit(input) != 1 && size != -1) {
         my_printf("$> ");
         size = getline(&input, &bufsize, stdin);
         delete_spaces(input, input);
-        if (input != NULL)
-            check_sep(input, my_env);
+        check_sep(input, my_env);
     }
     free_assets(my_env, input);
     return 0;
