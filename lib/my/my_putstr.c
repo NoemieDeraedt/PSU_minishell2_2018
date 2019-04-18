@@ -5,6 +5,7 @@
 ** lib
 */
 
+#include <unistd.h>
 #include "../../include/my.h"
 
 void my_putstr(char const *str)

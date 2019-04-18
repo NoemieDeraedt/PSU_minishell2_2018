@@ -5,18 +5,6 @@
 ** my.h
 */
 
-#include <stdlib.h>
-#include <unistd.h>
-#include <signal.h>
-#include <errno.h>
-#include <stdio.h>
-#include <sys/types.h>
-#include <sys/wait.h>
-#include <sys/stat.h>
-#include <fcntl.h>
-#include <string.h>
-#include <dirent.h>
-
 void my_putchar(char c);
 void my_isneg(int nb);
 void my_put_nbr(int nb);

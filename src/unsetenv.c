@@ -5,6 +5,7 @@
 ** unsetenv.c
 */
 
+#include <stdlib.h>
 #include "my.h"
 
 int compare_env(char *input, char *str, int j)

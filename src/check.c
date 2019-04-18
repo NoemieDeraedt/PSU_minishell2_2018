@@ -5,6 +5,7 @@
 ** check.c
 */
 
+#include <unistd.h>
 #include "my.h"
 
 int compare_args(char *input, char *str)

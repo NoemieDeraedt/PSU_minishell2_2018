@@ -5,6 +5,8 @@
 ** launch commands
 */
 
+#include <stdlib.h>
+#include <unistd.h>
 #include "my.h"
 
 char *counter_file(char *input)

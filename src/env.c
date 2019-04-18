@@ -5,6 +5,7 @@
 ** env.c
 */
 
+#include <stdlib.h>
 #include "my.h"
 
 char **create_env(char **env)

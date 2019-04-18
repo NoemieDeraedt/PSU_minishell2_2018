@@ -5,6 +5,9 @@
 ** cd.c
 */
 
+#include <unistd.h>
+#include <stdlib.h>
+#include <errno.h>
 #include "my.h"
 
 int my_cd(char *input)

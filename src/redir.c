@@ -5,6 +5,12 @@
 ** redir.c
 */
 
+#include <unistd.h>
+#include <stdlib.h>
+#include <sys/types.h>
+#include <sys/wait.h>
+#include <sys/stat.h>
+#include <fcntl.h>
 #include "my.h"
 
 int right_redir(char *input, char **env)

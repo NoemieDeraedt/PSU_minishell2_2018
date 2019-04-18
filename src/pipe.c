@@ -5,6 +5,10 @@
 ** pipe.c
 */
 
+#include <stdlib.h>
+#include <sys/wait.h>
+#include <sys/types.h>
+#include <unistd.h>
 #include "my.h"
 
 void end_pipe(pid_t pid1, pid_t pid2, int *pipefd)

@@ -5,6 +5,7 @@
 ** commands.c
 */
 
+#include <stdlib.h>
 #include "my.h"
 
 char *get_name(char *input)

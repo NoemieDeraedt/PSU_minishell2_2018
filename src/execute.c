@@ -5,6 +5,14 @@
 ** execute.c
 */
 
+#include <sys/types.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <sys/stat.h>
+#include <sys/wait.h>
+#include <fcntl.h>
+#include <dirent.h>
+#include <errno.h>
 #include "my.h"
 
 char **argv_in_double_array(char *input)
@@ -36,7 +44,7 @@ char **argv_in_double_array(char *input)
     argv[k][p] = '\0';
     argv[k + 1] = NULL;
     return argv;
-}
+} // CODING STYLE à FAIRE
 
 void check_status(int status)
 {

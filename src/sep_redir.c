@@ -5,6 +5,7 @@
 ** sep_redir.c
 */
 
+#include <stdlib.h>
 #include "my.h"
 
 int semicolon(char **env, char *input, char *str)

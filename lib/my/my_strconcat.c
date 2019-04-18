@@ -5,6 +5,7 @@
 ** my_strconcat.c
 */
 
+#include <stdlib.h>
 #include "my.h"
 
 char *my_strconcat(char *str1, char *str2)

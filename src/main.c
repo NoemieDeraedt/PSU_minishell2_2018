@@ -5,6 +5,8 @@
 ** main.c
 */
 
+#include <stdlib.h>
+#include <stdio.h>
 #include "my.h"
 
 int count_semicolon(char *input)
@@ -40,7 +42,7 @@ int main(int argc, char **argv, char **env)
     size_t bufsize;
     int size = 0;
 
-    if (argc != 1 || my_env == NULL)
+    if (argc != 1 || my_env == NULL || argv[1])
         return 84;
     while (size != -1) {
         my_printf("$> ");

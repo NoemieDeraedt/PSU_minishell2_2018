@@ -5,6 +5,7 @@
 ** my_error.c
 */
 
+#include <unistd.h>
 #include "../../include/my.h"
 
 void my_error(char *str)
