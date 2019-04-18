@@ -13,9 +13,12 @@ char *my_strconcat(char *str1, char *str2)
     int j = 0;
     char *dest = malloc(sizeof(char) * (my_strlen(str1) + my_strlen(str2)));
 
+    if (dest == NULL)
+        return NULL;
     for (i = 0; i < my_strlen(str1); i++)
         dest[i] = str1[i];
     for (; i < my_strlen(str1) + my_strlen(str2); i++, j++)
         dest[i] = str2[j];
+    dest[i - 1] = '\0';
     return dest;
 }

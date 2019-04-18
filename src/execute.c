@@ -33,6 +33,7 @@ char **argv_in_double_array(char *input)
             p++;
         }
     }
+    argv[k][p] = '\0';
     argv[k + 1] = NULL;
     return argv;
 }
@@ -84,6 +85,9 @@ int my_exec(char *input, char **env)
     }
     kill(pid_fils, status);
     free(file);
+    for (int i = 0; argv[i]; i++)
+        free(argv[i]);
+    free(argv);
     return 0;
 }
 
@@ -91,7 +95,7 @@ int exec_command(char *input, char **env)
 {
     char *file = my_strconcat("/bin/", input);
     char **argv = argv_in_double_array(input);
-    char *new = malloc(sizeof(char) * my_strlen(file));
+    char *new = malloc(sizeof(char) * (my_strlen(file) + 1));
     int i;
     pid_t pid_fils;
 
@@ -109,5 +113,9 @@ int exec_command(char *input, char **env)
         wait(NULL);
     kill(pid_fils, SIGUSR1);
     free(file);
+    free(new);
+    for (int i = 0; argv[i]; i++)
+        free(argv[i]);
+    free(argv);
     return 0;
 }

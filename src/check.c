@@ -31,6 +31,7 @@ void transform_input(int i, char *input, char sep, char *str)
         str[j] = input[i];
         j++;
     }
+    str[j] = '\0';
     delete_spaces(str, str);
 }
 

@@ -7,21 +7,9 @@
 
 #include "my.h"
 
-int find_equal(char *name)
-{
-    int j = 0;
-
-    for (int i = 0; name[i]; i++)
-        if (name[i] == '=')
-            j++;
-    if (j != 1)
-        return 84;
-    return 0;
-}
-
 char *get_name(char *input)
 {
-    char *name = malloc(sizeof(char) * (my_strlen(input) - 6));
+    char *name = malloc(sizeof(char) * (my_strlen(input) - 5));
     int n = 0;
 
     if (name == NULL)
@@ -31,6 +19,7 @@ char *get_name(char *input)
             name[n] = input[k];
         else
             name[n] = '=';
+    name[n] = '\0';
     if (find_equal(name) == 84 && name[n - 1] == '=')
         name[n - 1] = '\0';
     return name;
@@ -47,11 +36,25 @@ int new_env_var(char *input, char **my_env)
     if (name == NULL)
         return 84;
     for (a = 0; my_env[a]; a++);
-    my_env[a] = malloc(sizeof(char) * my_strlen(name));
+    my_env[a] = malloc(sizeof(char) * my_strlen(name) + 1);
     if (my_env[a] == NULL)
         return 84;
     my_strcpy(my_env[a], name);
+    my_env[a + 1] = NULL;
     free(name);
+    return 0;
+}
+
+int assign_env(char **my_env, char *name, int i)
+{
+    int j;
+
+    my_env[i] = malloc(sizeof(char) * my_strlen(name) + 1);
+    if (my_env[i] == NULL)
+        return 84;
+    for (j = 0; name[j]; j++)
+        my_env[i][j] = name[j];
+    my_env[i][j] = '\0';
     return 0;
 }
 
@@ -59,7 +62,7 @@ int change_env_var(char *input, char **my_env)
 {
     int i = find_env_var(input, my_env, 7);
     int n = 0;
-    char *name = malloc(sizeof(char) * (my_strlen(input) - 7));
+    char *name = malloc(sizeof(char) * (my_strlen(input) - 6));
 
     if (name == NULL)
         return 84;
@@ -68,13 +71,11 @@ int change_env_var(char *input, char **my_env)
             name[n] = input[k];
         else
             name[n] = '=';
+    name[n] = '\0';
     if (find_equal(name) == 84 && name[n - 1] == '=')
         name[n - 1] = '\0';
-    my_env[i] = malloc(sizeof(char) * my_strlen(name));
-    if (my_env[i] == NULL)
+    if (assign_env(my_env, name, i) == 84)
         return 84;
-    for (int j = 0; name[j]; j++)
-        my_env[i][j] = name[j];
     free(name);
     return 0;
 }

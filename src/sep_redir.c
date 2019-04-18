@@ -36,9 +36,10 @@ int redirections(char **env, char *input)
 int pipes(char **env, char *input)
 {
     int i = 0;
-    char *str = malloc(sizeof(char) * my_strlen(input));
-    char *str2 = malloc(sizeof(char) * my_strlen(str));
+    char *str = NULL;
+    char *str2 = malloc(sizeof(char) * my_strlen(input));
 
+    str = malloc(sizeof(char) * my_strlen(input));
     if (str == NULL || str2 == NULL)
         return 84;
     if (find_char(input, 0, '|') != -1) {
@@ -48,17 +49,17 @@ int pipes(char **env, char *input)
         transform_input(i, input, '|', str);
         i = find_char(input, i + 1, '|');
         pipe_func(env, str, str2);
-    } else {
+    } else
         if (check_commands(input, env) == 84)
             return 84;
-    }
+    free(str);
     free(str2);
     return 0;
 }
 
 int check_sep(char *input, char **env)
 {
-    char *str = malloc(sizeof(char) * my_strlen(input));
+    char *str = malloc(sizeof(char) * (my_strlen(input) + 1));
 
     if (str == NULL)
         return 84;
@@ -67,10 +68,9 @@ int check_sep(char *input, char **env)
     if (find_char(input, 0, ';') == -1) {
         if (redirections(env, input) == 84)
             return 84;
-    } else {
+    } else
         if (semicolon(env, input, str))
             return 84;
-    }
     free(str);
     return 0;
 }

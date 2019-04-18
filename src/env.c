@@ -24,6 +24,7 @@ char **create_env(char **env)
             return NULL;
         for (b = 0; b < my_strlen(env[a]); b++)
             my_env[a][b] = env[a][b];
+        my_env[a][b] = '\0';
     }
     my_env[a] = NULL;
     return my_env;

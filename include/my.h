@@ -66,3 +66,4 @@ void check_double_malloc(char **str);
 int pipes(char **env, char *input);
 void pipe_func(char **env, char *str, char *str2);
 int check_alphanum(char *input);
+int find_equal(char *name);

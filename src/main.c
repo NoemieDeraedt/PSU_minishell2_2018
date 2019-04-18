@@ -35,20 +35,20 @@ void free_assets(char **my_env, char *input)
 
 int main(int argc, char **argv, char **env)
 {
-    char *input = malloc(sizeof(char) * 1000);
+    char *input = NULL;
     char **my_env = create_env(env);
-    size_t bufsize = 1000;
+    size_t bufsize;
     int size = 0;
 
-    if (argc != 1)
+    if (argc != 1 || my_env == NULL)
         return 84;
-    if (input == NULL)
-        return 84;
-    input[0] = '\0';
-    while (check_exit(input) != 1 && size != -1) {
+    while (size != -1) {
         my_printf("$> ");
         size = getline(&input, &bufsize, stdin);
+        input[size - 1] = '\0';
         delete_spaces(input, input);
+        if (check_exit(input) == 1)
+            break;
         if (check_sep(input, my_env) == 84)
             return 84;
     }
