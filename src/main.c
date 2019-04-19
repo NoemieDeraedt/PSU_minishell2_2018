@@ -27,6 +27,13 @@ int find_char(char *input, int i, char c)
     return -1;
 }
 
+void free_double_array(char **array)
+{
+    for (int i = 0; array[i]; i++)
+        free(array[i]);
+    free(array);
+}
+
 void free_assets(char **my_env, char *input)
 {
     free(input);

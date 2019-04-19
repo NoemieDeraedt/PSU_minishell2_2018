@@ -24,7 +24,10 @@ int semicolon(char **env, char *input, char *str)
 
 int redirections(char **env, char *input)
 {
-    if (find_right_redirect(input) == 0) {
+    if (find_left_redirect(input) != 0) {
+        if (left_redir(env, input) == 84)
+            return 84;
+    } else if (find_right_redirect(input) == 0) {
         if (pipes(env, input) == 84)
             return 84;
     } else {

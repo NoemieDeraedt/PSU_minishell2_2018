@@ -23,7 +23,7 @@ int check_exit(char *input)
     return 0;
 }
 
-void transform_input(int i, char *input, char sep, char *str)
+char *transform_input(int i, char *input, char sep, char *str)
 {
     int j = 0;
 
@@ -34,16 +34,7 @@ void transform_input(int i, char *input, char sep, char *str)
     }
     str[j] = '\0';
     delete_spaces(str, str);
-}
-
-int find_right_redirect(char *input)
-{
-    int count = 0;
-
-    for (int i = 0; input[i]; i++)
-        if (input[i] == '>')
-            count++;
-    return count;
+    return str;
 }
 
 int check_alphanum(char *input)

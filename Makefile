@@ -36,5 +36,3 @@ fclean: clean
 	$(RM) $(NAME) libmy.a $(DEL)
 
 re: fclean all
-
-.PHONY: all clean fclean re

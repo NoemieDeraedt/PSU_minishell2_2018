@@ -13,7 +13,7 @@
 #include <fcntl.h>
 #include "my.h"
 
-char **create_args(char *input)
+char **create_args(char *input, char c)
 {
     int i = 0;
     int k;
@@ -24,8 +24,8 @@ char **create_args(char *input)
             str[k] = malloc(sizeof(char) * (my_strlen(input) + 1));
             if (str[k] == NULL)
                 return NULL;
-            transform_input(i, input, '>', str[k]);
-            i = find_char(input, i + 1, '>');
+            my_strcpy(str[k], transform_input(i, input, c, str[k]));
+            i = find_char(input, i + 1, c);
         }
     }
     str[2] = NULL;
@@ -45,7 +45,7 @@ int check_double_redir(char *input)
 
 int right_redir(char *input, char **env)
 {
-    char **str = create_args(input);
+    char **str = create_args(input, '>');
     int fd;
     pid_t pid;
 
@@ -63,8 +63,6 @@ int right_redir(char *input, char **env)
         exit(pid);
     } else
         wait(NULL);
-    for (int i = 0; i < 2; i++)
-        free(str[i]);
-    free(str);
+    free_double_array(str);
     return 0;
 }
