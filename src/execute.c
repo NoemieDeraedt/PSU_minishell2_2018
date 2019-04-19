@@ -15,37 +15,6 @@
 #include <errno.h>
 #include "my.h"
 
-char **argv_in_double_array(char *input)
-{
-    int k = 0;
-    int p = 0;
-    char **argv = malloc(sizeof(char) * 100);
-
-    if (argv == NULL)
-        return NULL;
-    argv[0] = malloc(sizeof(char) * 100);
-    if (argv[0] == NULL)
-        return NULL;
-    for (int j = 0; input[j] != '\n'; j++) {
-        if (input[j] == ';' || input[j] == '\0')
-            return argv;
-        if (input[j] == ' ') {
-            argv[k][p] = '\0';
-            k++;
-            argv[k] = malloc(sizeof(char) * 100);
-            if (argv[k] == NULL)
-                return NULL;
-            p = 0;
-        } else {
-            argv[k][p] = input[j];
-            p++;
-        }
-    }
-    argv[k][p] = '\0';
-    argv[k + 1] = NULL;
-    return argv;
-} // CODING STYLE à FAIRE
-
 void check_status(int status)
 {
     if (status == 136)
@@ -92,11 +61,17 @@ int my_exec(char *input, char **env)
         check_status(status);
     }
     kill(pid_fils, status);
-    free(file);
-    for (int i = 0; argv[i]; i++)
-        free(argv[i]);
-    free(argv);
+    free_assets(argv, file);
     return 0;
+}
+
+void fill_new(char *new, char *file)
+{
+    int i;
+
+    for (i = 0; file[i] && file[i] != ' ' && file[i] != '\n'; i++)
+        new[i] = file[i];
+    new[i] = '\0';
 }
 
 int exec_command(char *input, char **env)
@@ -104,14 +79,11 @@ int exec_command(char *input, char **env)
     char *file = my_strconcat("/bin/", input);
     char **argv = argv_in_double_array(input);
     char *new = malloc(sizeof(char) * (my_strlen(file) + 1));
-    int i;
     pid_t pid_fils;
 
     if (file == NULL || argv == NULL || new == NULL)
         return 84;
-    for (i = 0; file[i] && file[i] != ' ' && file[i] != '\n'; i++)
-        new[i] = file[i];
-    new[i] = '\0';
+    fill_new(new, file);
     if (open(new, O_RDONLY) == -1)
         return -1;
     pid_fils = fork();
@@ -121,9 +93,6 @@ int exec_command(char *input, char **env)
         wait(NULL);
     kill(pid_fils, SIGUSR1);
     free(file);
-    free(new);
-    for (int i = 0; argv[i]; i++)
-        free(argv[i]);
-    free(argv);
+    free_assets(argv, new);
     return 0;
 }

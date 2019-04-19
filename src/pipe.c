@@ -20,7 +20,6 @@ void end_pipe(pid_t pid1, pid_t pid2, int *pipefd)
     close(pipefd[1]);
     waitpid(pid2, &status2, 0);
     waitpid(pid1, &status1, 0);
-
 }
 
 void pipe_func(char **env, char *str, char *str2)

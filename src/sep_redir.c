@@ -37,10 +37,9 @@ int redirections(char **env, char *input)
 int pipes(char **env, char *input)
 {
     int i = 0;
-    char *str = NULL;
-    char *str2 = malloc(sizeof(char) * my_strlen(input));
+    char *str = malloc(sizeof(char) * (my_strlen(input) + 1));
+    char *str2 = malloc(sizeof(char) * (my_strlen(input) + 1));
 
-    str = malloc(sizeof(char) * my_strlen(input));
     if (str == NULL || str2 == NULL)
         return 84;
     if (find_char(input, 0, '|') != -1) {

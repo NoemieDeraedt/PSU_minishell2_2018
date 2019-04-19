@@ -11,12 +11,14 @@
 
 char *counter_file(char *input)
 {
-    char *file = malloc(sizeof(char) * (my_strlen(input) - 2));
+    char *file = malloc(sizeof(char) * (my_strlen(input)));
+    int i;
 
     if (file == NULL)
         return NULL;
-    for (int i = 0; input[i]; i++)
+    for (i = 0; input[i]; i++)
         file[i] = input[i + 2];
+    file[i - 1] = '\0';
     return file;
 }
 

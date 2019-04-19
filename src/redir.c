@@ -13,35 +13,41 @@
 #include <fcntl.h>
 #include "my.h"
 
-int right_redir(char *input, char **env)
+char **create_args(char *input)
 {
-    char **str = malloc(sizeof(char) * 2);
     int i = 0;
-    int fd;
-    pid_t pid;
-    int status;
+    char **str = malloc(sizeof(char) * 2);
 
-    if (str == NULL)
-        return 84;
     for (int j = 0; j < find_right_redirect(input) + 1; j++) {
         for (int k = 0; i != -1; k++) {
             str[k] = malloc(sizeof(char) * my_strlen(input));
             if (str[k] == NULL)
-                return 84;
+                return NULL;
             transform_input(i, input, '>', str[k]);
             i = find_char(input, i + 1, '>');
         }
     }
+    return str;
+}
+
+int right_redir(char *input, char **env)
+{
+    char **str = create_args(input);
+    int fd;
+    pid_t pid;
+
+    if (str == NULL)
+        return 84;
     str[1][my_strlen(str[1]) - 1] = '\0';
-    pid = fork();
     fd = open(str[1], O_CREAT | O_RDWR, S_IRUSR | S_IWUSR);
-    if (pid != 0) {
+    pid = fork();
+    if (pid == 0) {
         dup2(fd, 1);
+        close(fd);
         check_commands(str[0], env);
         exit(pid);
     } else
-        waitpid(pid, &status, 0);
-    close(fd);
+        wait(NULL);
     for (int i = 0; i < 2; i++)
         free(str[i]);
     free(str);
