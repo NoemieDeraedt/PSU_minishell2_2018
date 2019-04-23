@@ -17,7 +17,6 @@ int left_redir(char **env, char *input)
 {
     pid_t pid;
     int fd;
-    int status;
     char **str = create_args(input, '<');
 
     fd = open(str[1], O_RDONLY);

@@ -60,3 +60,4 @@ void free_double_array(char **array);
 int left_redir(char **env, char *input);
 char **create_args(char *input, char c);
 int find_left_redirect(char *input);
+void error_message(char *first_name, char *message);
