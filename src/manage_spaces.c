@@ -16,7 +16,7 @@ void delete_spaces(char *str, char *dest)
         if (str[i] == ' ' || str[i] == '\t')
             str[i] = '~';
     for (int i = len_str - 1; str[i] == ' ' || str[i] == '\t' ||
-    str[i] == '\n'; i--)
+        str[i] == '\n'; i--)
         if (str[i] == ' ' || str[i] == '\t')
             str[i] = '~';
     for (int i = 0; i < my_strlen(str); i++)

@@ -60,6 +60,7 @@ int right_redir(char *input, char **env)
         dup2(fd, 1);
         close(fd);
         check_commands(str[0], env);
+        free_double_array(str);
         exit(pid);
     } else
         wait(NULL);

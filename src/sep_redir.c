@@ -66,7 +66,8 @@ int check_sep(char *input, char **env)
 
     if (str == NULL)
         return 84;
-    if (input[0] == '\n' || input[0] == '\t' || input[0] == ' ')
+    if (input[0] == '\n' || input[0] == '\t' || input[0] == ' ' || input[0] ==
+        ';' || input[0] == '|' || input[0] == '>' || input[0] == '<')
         return 0;
     if (find_char(input, 0, ';') == -1) {
         if (redirections(env, input) == 84)

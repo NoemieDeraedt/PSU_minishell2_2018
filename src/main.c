@@ -61,6 +61,7 @@ int main(int argc, char **argv, char **env)
         if (check_sep(input, my_env) == 84)
             return 84;
     }
+    my_printf("exit\n");
     free_assets(my_env, input);
     return 0;
 }

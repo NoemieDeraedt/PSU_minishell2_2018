@@ -45,7 +45,7 @@ int my_exec(char *input, char **env)
 {
     char *file = counter_file(input);
     char **argv = argv_in_double_array(input);
-    pid_t pid_fils;
+    pid_t pid;
     int status;
 
     if (argv == NULL || file == NULL)
@@ -53,14 +53,14 @@ int my_exec(char *input, char **env)
     file[my_strlen(file) - 1] = '\0';
     if (check_errors(file) == 84)
         return 0;
-    pid_fils = fork();
-    if (pid_fils == 0)
+    pid = fork();
+    if (pid == 0)
         execve(file, argv, env);
     else {
-        waitpid(pid_fils, &status, 0);
+        waitpid(pid, &status, 0);
         check_status(status);
     }
-    kill(pid_fils, status);
+    kill(pid, status);
     free_assets(argv, file);
     return 0;
 }

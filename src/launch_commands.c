@@ -16,9 +16,12 @@ char *counter_file(char *input)
 
     if (file == NULL)
         return NULL;
-    for (i = 0; input[i]; i++)
-        file[i] = input[i + 2];
-    file[i - 1] = '\0';
+    if (input[0] == '.') {
+        for (i = 0; input[i]; i++)
+            file[i] = input[i + 2];
+        file[i - 1] = '\0';
+    } else if (input[0] == '/')
+        my_strcpy(file, input);
     return file;
 }
 
@@ -27,7 +30,7 @@ int check_no_commands(char *input, char **env)
     if (compare_args(input, "cd ") != 0 && compare_args(input, "env") != 0 &&
     compare_args(input, "setenv") != 0 && compare_args(input, "./") != 0 &&
     compare_args(input, "unsetenv") != 0 && compare_args(input, "pwd") != 0 &&
-    compare_args(input, "exit\n") != 0) {
+    compare_args(input, "exit\n") != 0 && compare_args(input, "/") != 0) {
         if (exec_command(input, env) == 0)
             return 0;
         else {
@@ -56,7 +59,7 @@ int check_commands(char *input, char **env)
         else
             display_env(env);
     }
-    if (compare_args(input, "./") == 0)
+    if (compare_args(input, "./") == 0 || compare_args(input, "/") == 0)
         i = my_exec(input, env);
     if (compare_args(input, "unsetenv") == 0)
         i = my_unsetenv(input, env);
