@@ -18,11 +18,11 @@
 void check_status(int status)
 {
     if (status == 136)
-        my_error("Floating exception\n");
+        my_error("Floating exception (core dumped)\n");
     if (status == 139)
-        my_error("Segmentation fault\n");
+        my_error("Segmentation fault (core dumped)\n");
     if (status == 134)
-        my_error("Abort\n");
+        my_error("Abort (core dumped)\n");
 }
 
 int check_errors(char *file)
