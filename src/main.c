@@ -42,6 +42,17 @@ void free_assets(char **my_env, char *input)
     free(my_env);
 }
 
+int check_input(char *input)
+{
+    int i = 0;
+
+    for (int n = 0; input[n]; n++) {
+        if (input[n] != ' ' && input[n] != '\t')
+            i++;
+    }
+    return i;
+}
+
 int main(int argc, char **argv, char **env)
 {
     char *input = NULL;

@@ -41,7 +41,8 @@ int check_alphanum(char *input)
 {
     for (int i = 0; i < my_strlen(input); i++) {
         if ((input[i] < '0' || (input[i] > 'Z' && input[i] < 'a')
-        || input[i] > 'z') && input[i] != ' ' && input[i] != '\n') {
+        || input[i] > 'z') && input[i] != ' ' && input[i] != '\n' &&
+        input[i] != '/') {
             write(2, "setenv: Variable name must ", 27);
             write(2, "contain alphanumeric characters.\n", 34);
             return 1;

@@ -30,7 +30,7 @@ int check_errors(char *file)
     if (access(file, X_OK) == -1) {
         if (errno == EACCES)
             permission_denied(file);
-        if (errno == ENOENT)
+        else if (errno == ENOENT)
             command_not_found(file);
         return 84;
     }
@@ -62,37 +62,5 @@ int my_exec(char *input, char **env)
     }
     kill(pid, status);
     free_assets(argv, file);
-    return 0;
-}
-
-void fill_new(char *new, char *file)
-{
-    int i;
-
-    for (i = 0; file[i] && file[i] != ' ' && file[i] != '\n'; i++)
-        new[i] = file[i];
-    new[i] = '\0';
-}
-
-int exec_command(char *input, char **env)
-{
-    char *file = my_strconcat("/bin/", input);
-    char **argv = argv_in_double_array(input);
-    char *new = malloc(sizeof(char) * (my_strlen(file) + 1));
-    pid_t pid_fils;
-
-    if (file == NULL || argv == NULL || new == NULL)
-        return 84;
-    fill_new(new, file);
-    if (open(new, O_RDONLY) == -1)
-        return -1;
-    pid_fils = fork();
-    if (pid_fils == 0)
-        execve(new, argv, env);
-    else
-        wait(NULL);
-    kill(pid_fils, SIGUSR1);
-    free(file);
-    free_assets(argv, new);
     return 0;
 }

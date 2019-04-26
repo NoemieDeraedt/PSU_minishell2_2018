@@ -16,6 +16,7 @@ void command_not_found(char *str)
 
 void permission_denied(char *str)
 {
+    my_error("./");
     my_error(str);
     my_error(": Permission denied.\n");
 }

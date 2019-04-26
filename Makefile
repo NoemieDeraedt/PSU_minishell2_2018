@@ -19,7 +19,9 @@ SRCS	=   ./src/argv.c \
 			./src/sep_redir.c \
 			./src/setenv.c \
 			./src/unsetenv.c \
-			./src/write_error.c 
+			./src/write_error.c \
+			./src/exec_builtin.c \
+			./src/double_array.c
 
 OBJS	= $(SRCS:.c=.o)
 

@@ -18,7 +18,7 @@ SRCS	= ./my/error_message.c \
 	  ./my/my_strncat.c \
 	  ./my/my_strncpy.c \
 	  ./my/my_swap.c \
-	  ./my/number_in_array.c 
+	  ./my/number_in_array.c
 
 OBJS	= $(SRCS:.c=.o)
 
