@@ -43,8 +43,8 @@ int check_alphanum(char *input)
         if ((input[i] < '0' || (input[i] > 'Z' && input[i] < 'a')
         || input[i] > 'z') && input[i] != ' ' && input[i] != '\n' &&
         input[i] != '/') {
-            write(2, "setenv: Variable name must ", 27);
-            write(2, "contain alphanumeric characters.\n", 34);
+            my_error("setenv: Variable name must contain ");
+            my_error("alphanumeric characters.\n");
             return 1;
         }
     }

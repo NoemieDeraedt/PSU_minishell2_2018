@@ -65,8 +65,10 @@ int main(int argc, char **argv, char **env)
     while (size != -1) {
         my_printf("$> ");
         size = getline(&input, &bufsize, stdin);
-        input[size - 1] = '\0';
-        delete_spaces(input, input);
+        if (size != 1) {
+            input[size - 1] = '\0';
+            delete_spaces(input, input);
+        }
         if (check_exit(input) == 1)
             break;
         if (check_sep(input, my_env) == 84)

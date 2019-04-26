@@ -24,7 +24,7 @@ char **create_args(char *input, char c)
             str[k] = malloc(sizeof(char) * (my_strlen(input) + 1));
             if (str[k] == NULL)
                 return NULL;
-            my_strcpy(str[k], transform_input(i, input, c, str[k]));
+            str[k] = my_strcpy(str[k], transform_input(i, input, c, str[k]));
             i = find_char(input, i + 1, c);
         }
     }
