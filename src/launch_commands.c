@@ -37,7 +37,7 @@ int check_commands(char *input, char **env)
             return i;
         }
     }
-    if (exec_command(input, env) == 0)
+    if (exec_command(input, env) == 0 || local_exec(input, env) == 0)
         return 0;
     else {
         input[my_strlen(input) - 1] = '\0';

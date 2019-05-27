@@ -49,5 +49,6 @@ int find_left_redirect(char *input);
 void error_message(char *first_name, char *message);
 char **path_double_array(char *input);
 commands_t *init_commands(void);
+int local_exec(char *input, char **env);
 
 #endif //PSU_MINISHELL2_2018_STRUCT_H

@@ -64,3 +64,26 @@ int my_exec(char *input, char **env)
     free_assets(argv, file);
     return 0;
 }
+
+int local_exec(char *input, char **env)
+{
+    char **argv = argv_in_double_array(input);
+    pid_t pid;
+    int status = 0;
+
+    if (argv == NULL)
+        return 84;
+    pid = fork();
+    input[my_strlen(input) - 1] = '\0';
+    if (pid == 0)
+        execve(input, argv, env);
+    else {
+        waitpid(pid, &status, 0);
+        check_status(status);
+    }
+    kill(pid, status);
+    for (int i = 0; argv[i]; i++)
+        free(argv[i]);
+    free(argv);
+    return 0;
+}
