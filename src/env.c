@@ -6,6 +6,7 @@
 */
 
 #include <stdlib.h>
+#include "struct.h"
 #include "my.h"
 
 char **create_env(char **env)
@@ -31,10 +32,11 @@ char **create_env(char **env)
     return my_env;
 }
 
-void display_env(char **env)
+int display_env(__attribute__((unused)) char *input, char **env)
 {
     int j;
 
     for (j = 0; env[j]; j++)
         my_printf("%s\n", env[j]);
+    return 0;
 }

@@ -21,7 +21,8 @@ SRCS	=   ./src/argv.c \
 			./src/unsetenv.c \
 			./src/write_error.c \
 			./src/exec_builtin.c \
-			./src/double_array.c
+			./src/double_array.c \
+			./src/init_commands.c
 
 OBJS	= $(SRCS:.c=.o)
 
@@ -38,6 +39,7 @@ clean:
 	$(RM) $(OBJS)
 
 fclean: clean
+	make fclean -C lib/
 	$(RM) $(NAME)
 
 debug: CFLAGS += -g

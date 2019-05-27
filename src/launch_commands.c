@@ -7,6 +7,7 @@
 
 #include <stdlib.h>
 #include <unistd.h>
+#include "struct.h"
 #include "my.h"
 
 char *counter_file(char *input)
@@ -25,45 +26,23 @@ char *counter_file(char *input)
     return file;
 }
 
-int check_no_commands(char *input, char **env)
-{
-    if (compare_args(input, "cd ") != 0 && compare_args(input, "env") != 0 &&
-    compare_args(input, "setenv") != 0 && compare_args(input, "./") != 0 &&
-    compare_args(input, "unsetenv") != 0 && compare_args(input, "pwd") != 0 &&
-    compare_args(input, "exit\n") != 0 && compare_args(input, "/") != 0) {
-        if (exec_command(input, env) == 0)
-            return 0;
-        else {
-            for (int i = 0; input[i] != ' ' && input[i] != '\n'; i++)
-                write(2, &input[i], 1);
-            my_error(": Command not found.\n");
-            return 0;
-        }
-    }
-    return 1;
-}
-
 int check_commands(char *input, char **env)
 {
     int i = 0;
+    commands_t *commands = init_commands();
 
-    if (check_no_commands(input, env) == 0)
-        return 0;
-    if (compare_args(input, "cd ") == 0)
-        i = my_cd(input);
-    if (compare_args(input, "env") == 0)
-        display_env(env);
-    if (compare_args(input, "setenv") == 0) {
-        if (input[6] == ' ' && input[7] && input[7] != ' ' && input[7] != '\n')
-            i = my_setenv(input, env);
-        else
-            display_env(env);
+    for (int i = 0; commands[i].command; i++) {
+        if (compare_args(input, commands[i].command) == 0) {
+            i = (*commands[i].function)(input, env);
+            return i;
+        }
     }
-    if (compare_args(input, "./") == 0 || compare_args(input, "/") == 0)
-        i = my_exec(input, env);
-    if (compare_args(input, "unsetenv") == 0)
-        i = my_unsetenv(input, env);
-    if (compare_args(input, "pwd") == 0)
-        i = my_pwd();
+    if (exec_command(input, env) == 0)
+        return 0;
+    else {
+        input[my_strlen(input) - 1] = '\0';
+        my_error(&input[i]);
+        my_error(": Command not found.\n");
+    }
     return i;
 }

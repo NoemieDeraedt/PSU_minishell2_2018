@@ -10,3 +10,4 @@ my_divzero
 my_abort
 a
 my_segmentation_fault
+.idea/

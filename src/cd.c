@@ -10,7 +10,7 @@
 #include <errno.h>
 #include "my.h"
 
-int my_cd(char *input)
+int my_cd(char *input, __attribute__((unused)) char **env)
 {
     char *path = malloc(sizeof(char) * my_strlen(input) + 1);
     int i;
@@ -28,18 +28,5 @@ int my_cd(char *input)
     if (errno == ENOENT && path[0] != '.' && path[1] != '.')
         error_message(path, ": No such file or directory.\n");
     free(path);
-    return 0;
-}
-
-int my_pwd(void)
-{
-    char *buffer = malloc(sizeof(char) * 50);
-    size_t size = 42;
-
-    if (buffer == NULL)
-        return 84;
-    getcwd(buffer, size);
-    my_printf("%s\n", buffer);
-    free(buffer);
     return 0;
 }
